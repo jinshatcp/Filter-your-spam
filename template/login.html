@@ -1,34 +1,106 @@
-<html>
-<head>
-	<h2>LOGIN</h2>
-</head>
-<body>
-	<form method="post" action="{% url 'loginAction' %}">
-	{% csrf_token %}
-		
-			<table>
-				<tr><td><input type="radio" name="log" value="1"/>admin</td>
-					<td><input type="radio" name="log" value="2"/>user</td>
-				</tr>
-				<tr>
-					<td>Username</td>
-					<td><input type="text" name="username" id="username"/></td>
-				</tr>
-				<tr>
-					<td>Password</td>
-					<td><input type="password" name="password" id="password"/></td>
-				</tr>
-				<tr>
-					<td></td>
-					<td><input type="submit" value="Login"/></td>
-				</tr>
-			</table>
-		</form>
+{% extends 'base.html '%}
+{% block content %} 
 
-</body>
+
+	<section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>login</h2>
+          
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+	 <section id="contact" class="contact">
+      <div class="container">
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'loginAction' %}" name="loginAction" class="php-email-form">
+	{% csrf_token %}
+              <div class="row">
+<label>SELECT ACCOUNT</label>
+		<div class="col-md-4 form-group">
+				<input type="radio" name="log" value="1" style="height:unset"/>admin
+		</div>
+		<div class="col-md-6 form-group">
+					<td><input type="radio" name="log" value="2" style="height:unset"/>user
+		</div>
+		</div>		
+                 <div class="form-group mt-3">
+<label>USERNAME</label>
+                  <input type="text" name="username" class="form-control" id="username" placeholder="Your username" required>
+                </div>
+		  <div class="form-group mt-3">
+<label>PASSWORD</label>
+                  <input type="text" name="password" class="form-control" id="passwoprd" placeholder="password" required>
+                </div>
+		
+                
+            
+              
+              <div class="my-3">
+		</div>
+             
+             
+              
+              <div class="text-center"><input type="submit" class="submit" onclick="return validation()"/></div>
+            </form>
+          </div>
+
+        </div>
+</div>
+   
+    </section>
+
+
+<script type="text/javascript">
+	function validation() {
+		
+
+		
+		var log=document.loginAction.log;
+
+		var name=document.getElementById("username");
+		var pass=document.getElementById("password");
+
+		if(log[0].checked == false && log[1].checked == false )
+		{
+			alert("select user");
+			return false;
+		}
+
+		else if(name.value.length==0)
+		 {
+			alert("username field cannot be empty");
+			return false;
+				}
+		else if(pass.value.length==0)
+		 {
+			alert("password field cannot be empty");
+			return false;
+				}
+		
+		else
+			{
+			return true;
+		}
+	}
+</script>
+
+
+
+	
+		
+			
+			<li><a href="{% url 'forgotpassword' %}">forgot password</a></li></td></tr>
+			
+
+
 {% if msg %}
 	<script>
 		alert('{{msg}}');
 	</script>
 {% endif %}
-</html>
+{% endblock %}

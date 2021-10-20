@@ -1,28 +1,275 @@
-<html>
-<head>
-	<h2>register</h2>
-</head>
+{% extends 'base.html' %}
+{% block content %}
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>REGISTER</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= registert Section ======= -->
+   
+
+    <section id="register" class="contact">
+      <div class="container">
+
+        <div class="row justify-content-center" data-aos="fade-up">
+
+          <div class="col-lg-10">
+
+            
+          </div>
+
+        </div>
+
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'registerAction' %}" name="register" class="php-email-form">
+	{% csrf_token %}
+		
+              
+                <div class="form-group mt-3">
+		<label>name</label>
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+		<label> GENDER </label>
+		  <div class="form-control tab4">
+		
+		
+				&nbsp&nbsp<input type="radio" name="gender"  style="height:unset"/>male&nbsp&nbsp
+		
+		
+					&nbsp&nbsp<input type="radio" name="gender"  style="height:unset"/>female
+		
+		</div>
+		<div class="form-group mt-3">
+		<label> DATE OF BIRTH </label>
+                  <input type="date" name="dob" class="form-control" id="dob" placeholder="select date of birth" required>
+                </div>
+		 <div class="form-group mt-3">
+		<label>ADDRESS</label>
+                <textarea class="form-control" name="address" rows="5"  placeholder="address" required></textarea>
+              </div>
+		<div class="form-group">
+		<label>COUNTRY</label>
+			<select class="form-control" name="country" id="country" >
+				<option value= "">_select country</option>
+				
+				{% for c in data %} 
+					&nbsp<option value="{{c.id}}">{{c.country_name}}</option>&nbsp
+				{% endfor %}
+				</select>
+			</div>
+			<div class="form-group mt-3">
+			<label>STATE</label>
+				<select name = "state" id="state" class="form-control">
+				<option value= "">select state</option>
+				</select>
+			</div>
+			<label>SELECT HOBBIES</label>
+			<div class="form-control">
+				{% for h in dataa %}
+						<input type="checkbox"  name="hobby"  style="height:unset" value="{{h.id}}"/>{{h.hobby_name}}&nbsp&nbsp&nbsp&nbsp
+					{% endfor %}
+				
+				</div>
+	
+		
+             <div class="form-group mt-3">
+		<label> PHONE NUMBER</label>
+                  <input type="text" name="phone" class="form-control" id="phone" placeholder="phone number" required>
+                </div>
+		<div class="form-group mt-3">
+		<label>USERNAME</label>
+                  <input type="text" name="username" class="form-control" id="username" placeholder="username" required>
+                </div>
+		<div class="form-group mt-3">
+		<label>PASSWORD</label>
+                  <input type="text" name="password" class="form-control" id="password" placeholder="password" required>
+                </div>
+		<div class="my-3">
+		</div>
+             
+             
+              <div class="text-center"><button type="submit">register</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+<script type="text/javascript">
+	function validation() {
+		
+		var alphabet=/^[a-zA-Z]+$/;
+		
+		var number=/^[0-9]+$/;
+		var n=/^\d{10}$/;
+		var email=/^[\w\-\.\+]+\a[a-zA-Z0-9\.\-]+[a-zA-Z0-9]{2,4}$/;
+		
+		
+	
+
+		var name=document.getElementById("name");
+	
+		var gender=document.register.gender;
+
+		var dob=document.getElementById("dob");
+		var address=document.getElementById("address");
+		var country=document.getElementById("country");
+		var state=document.getElementById("state");
+		var phone=document.getElementById("phone");
+		var username=document.getElementById("username");
+		var password=document.getElementById("password");
+		var hobby=document.register.hobby;
+		var flag=0;
+		for(var i=0;i<hobby.length;i++) {
+			if(hobby[i].checked == true) {
+				flag=1;
+			}
+		}
+		 if(name.value.length==0)
+		 {
+			alert("please enter your name");
+			name.focus();
+			return false;
+	}
+		else if(!name.value.match(alphabet))
+		 {
+			alert("invalid name");
+			name.focus();
+			return false;
+				}
+		else if(gender.value.length==0)
+		{
+			alert("select gender");
+			return false;
+		}
+		else if(dob.value.length==0)
+		{
+			alert("select your date of birth");
+			return false;
+		}
+		else if(address.value.length==0)
+		 {
+			alert("address field cannot be empty");
+			address.focus();
+			return false;
+				}
+		else if(!address.value.match(alphabet))
+		 {
+			alert("invalid address");
+			address.focus();
+			return false;
+				}
+		else if(country.value.length==0)
+		 {
+			alert("please select your country");
+			return false;
+				}
+		
+		else if(state.value.length==0) 
+		{
+			alert("please select your state");
+			return false;
+				}
+		
+		else if(phone.value.length==0) 
+		{
+			alert("please enter your  phone number");
+			phone.focus();
+			return false;
+				}
+		else if(!phone.value.match(n)) 
+		{
+			alert("invalid phone number ");
+			phone.focus();
+			return false;
+				}
+		else if(flag == 0) {
+			alert("select hobby");
+			return false;
+		}
+		else if(username.value.length==0) 
+		{
+			alert("please enter a username");
+			username.focus();
+			return false;
+				}
+		else if(!username.value.match(alphabet)) 
+		{
+			alert("invalid usernname; username can have only alphabets");
+			username.focus();
+			return false;
+				}
+		else if(password.value.length==0) 
+		{
+			alert("please enter password");
+			password.focus()
+			return false;
+alert("ssfd");				}
+		
+		
+		else  
+		{
+			return true;
+		}
+	}
+</script>
+
 <script src="/static/jquery.min.js"></script>
 <script>
-
-	$(document).ready(function() {
-		$("#country").change(function() { 
-			cid=$("#country").val();
-			$.ajax ({
-				url:"{% url 'getstate' %}",
-				data:{'cid':cid},
-				success:function(data) {
-					$("#state").html(data);
-				}
-			});
+		$(document).ready(function() {
+				$("#country").change(function() { 
+				cid=$("#country").val();
+				$.ajax ({
+					url:"{% url 'getstate' %}",
+					data:{'cid':cid},
+					success:function(data) {
+						$("#state").html(data);
+					}
+				});
 
 			
 			});
 		
-	});
+
+			$("#username").change(function() { 
+				username=$("#username").val();
+
+				$.ajax({
+					url:"{% url 'checkusername' %}",
+					data:{'username':username},
+					success:function(data) {
+						if (data.check == 'exist') {
+							alert("username already exist");
+
+							$('#username').val('');
+						}
+					}
+				});
+			});
+
+		});
+	
 </script>
+{% endblock %}
 <body>
-	<form method="post" action="{% url 'registerAction' %}">
+	<form method="post" action="{% url 'registerAction' %}" name="register">
 	{% csrf_token %}
 		
 		<table>
@@ -48,7 +295,7 @@
 			<tr>
 			<td>country</td>
 			<td><select name="country" id="country">
-				<option value= " ">__select__</option>
+				<option value= "">__select__</option>
 				
 				{% for c in data %} 
 					<option value="{{c.id}}">{{c.country_name}}</option>
@@ -61,7 +308,7 @@
 			<td>state</td>
 			<td>
 				<select name = "state" id="state">
-				<option value= " ">__select__</option>
+				<option value= "">__select__</option>
 				</select>
 			</td>
 
@@ -76,13 +323,13 @@
 				<td>hobbies</td>
 				<td>
 					{% for h in dataa %}
-						<input type="checkbox"  name="hobby"value="{{h.id}}"/>{{h.hobby_name}}
+						<input type="checkbox"  name="hobby" value="{{h.id}}"/>{{h.hobby_name}}
 					{% endfor %}
 				</td>
 			</tr>
 			<tr>
 				<td>Username</td>
-				<td><input type="text" name="username" id="username"/>@mail.com</td>
+				<td><input type="text" name="username" id="username"/></td>
 			</tr>
 			<tr>
 				<td>Password</td>
@@ -90,10 +337,10 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="submit" value="Register"/></td>
+				<td><input type="submit" value="Register" onclick="return validation()"/></td>
 			</tr>
 		</table>
 		</form>
 
 </body>
-</html>
+</ht   

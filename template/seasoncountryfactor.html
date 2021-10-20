@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript">
+	function validation() {
+	var season=document.getElementById("season");
+	var factor=document.getElementById("factor");
+	var country=document.getElementById("country");
+	var state=document.getElementById("state");
+	var month=document.getElementById("month");
+	if(season.value.length == 0) {
+		alert("select season");
+		
+		return false;
+		}
+	else if(factor.value.length == 0) {
+		alert("select factor");
+		
+		return false;
+		}
+	else if(country.value.length == 0){
+		alert("select country");
+		
+		return false;
+		}
+	else if(state.value.length == 0){
+		alert("select state");
+		
+		return false;
+	}
+	else if(month.value.length == 0){
+		alert("select month");
+		
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+</script>
+<script src="/static/jquery.min.js"></script>
+<script>
+
+	$(document).ready(function() {
+		$("#season").change(function() { 
+			sid=$("#season").val();
+			$.ajax ({
+				url:"{% url 'getfact' %}",
+				data:{'sid':sid},
+				success:function(data) {
+					$("#factor").html(data);
+				}
+			});
+
+			
+			});
+		
+	});
+</script>
+<script src="/static/jquery.min.js"></script>
+<script>
+
+	$(document).ready(function() {
+		$("#country").change(function() { 
+			cid=$("#country").val();
+			$.ajax ({
+				url:"{% url 'getstate' %}",
+				data:{'cid':cid},
+				success:function(data) {
+					$("#state").html(data);
+				}
+			});
+
+			
+			});
+		
+	});
+</script>
+
+
+<!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>add season factor factor</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= registert Section ======= -->
+   
+
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="row justify-content-center" data-aos="fade-up">
+
+          <div class="col-lg-10">
+
+            
+          </div>
+
+        </div>
+
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'countryAction' %}" class="php-email-form">
+	{% csrf_token %}
+		
+		<div class="form-group">
+		<label>season</label>
+			<select class="form-control" name="season" id="season" >
+				<option value= "">_select season</option>
+				
+				{% for s in data %} 
+					<option value="{{s.id}}">{{s.season_name}}</option>
+				{% endfor %}
+				</select>
+			</div>              
+			<div class="form-group">
+		<label>factor name </label>
+			<select class="form-control" name="factor" id="factor" >
+				<option value= "">_select factor</option>
+				
+				
+				</select>
+			</div>  
+		<div class="form-group">
+		<label>country</label>
+			<select class="form-control" name="country" id="country" >
+				<option value="">__select__</option>
+					<option value="1">india</option>
+					<option value="2">china</option>
+					<option value="3">japan</option>
+				</select>
+				
+		</div>	
+		<div class="form-group">
+		<label>state</label>
+			<select class="form-control" name="state" id="state" >
+				<option value="">_select state</option>
+				
+				
+				</select>
+			</div>       	
+			          
+		<div class="form-group">
+		<label>month</label>
+			<select class="form-control" name="month" id="month" >
+				<option value="">__select__</option>
+					<option value="1">jan</option>
+					<option value="2">feb</option>
+					<option value="3">mar</option>
+					<option value="4">apr</option>
+					<option value="5">may</option>
+					<option value="6">jun</option>
+					<option value="7">jul</option>
+					<option value="8">aug</option>
+					<option value="9">sep</option>
+					<option value="10">oct</option>
+					<option value="11">nov</option>
+					<option value="12">dec</option>
+				
+				
+				</select>
+			</div>       	
+			   <div class="text-center"><button type="submit" onclick="return validation()">add</button></div>
+               
+</form>
+</section>
+
+
+{% endblock %}
+
+<head>
+	<h2> season country factor</h2>
+</head>
+
+
+<body>
+
+<form method="post" action="{% url 'countryAction' %}">
+	{% csrf_token %}
+<table>
+		<tr>
+			<td>season</td>
+			<td>
+				<select name="season" id="season">
+						<option value="">--select--</option>
+						{% for s in data %}
+							<option value="{{s.id}}">{{s.season_name}}</option>
+						{% endfor %}
+					</select>
+			</td>
+			
+		</tr>
+		<td>factor name</td>
+			<td>
+				<select name = "factor" id="factor">
+				<option value= " ">__select__</option>
+				</select>
+			</td>
+		<tr>
+			<td>country</td>
+			<td>
+				<select name="country" id="country">
+					<option value="">__select__</option>
+					<option value="1">india</option>
+					<option value="2">china</option>
+					<option value="3">japan</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>state</td>
+			<td>
+				<select name = "state" id="state">
+				<option value= " ">__select__</option>
+				</select>
+			</td>
+
+		</tr>
+		
+		<tr>
+			<td>month</td>
+			<td>
+				<select name="month" id="month">
+					<option value="">__select__</option>
+					<option value="1">jan</option>
+					<option value="2">feb</option>
+					<option value="3">mar</option>
+					<option value="4">apr</option>
+					<option value="5">may</option>
+					<option value="6">jun</option>
+					<option value="7">jul</option>
+					<option value="8">aug</option>
+					<option value="9">sep</option>
+					<option value="10">oct</option>
+					<option value="11">nov</option>
+					<option value="12">dec</option>
+				</select>
+		</td>
+		</tr>
+		<tr><td></td><td><input type="submit" value="add" onclick="return validation()"/></td></tr>
+	</table>
+	</body>
+

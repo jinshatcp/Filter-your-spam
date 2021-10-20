@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}<div class="row">
+
+<!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>my contacts</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+
+ <section id="testimonials" class="testimonials section-bg">
+
+     
+<div class="container">
+
+        <div class="row">
+{% for v in data %}
+         
+           <div class="col-lg-6" data-aos="fade-up" style="margin-top:20px">
+            <div class="testimonial-item">
+                
+           
+             
+                <h2>name:{{v.name}}</h2>
+ 		<h4>username:{{v.contact_id.username}}</h4>
+		 <h4>phone:{{v.contact_id.phone}}</h4>
+		<h4>country:{{v.contact_id.country.country_name}}</h4>
+<br>
+                <a href="{% url 'sendmessage' %}">send message</a>
+	<br>
+		<a href="{% url 'block' v.id %}">add to blacklist</a>
+              </div>
+</div>
+ {% endfor %}           
+</section>          
+
+{% endblock %}
+
+
+	<body>
+		<table>
+			<tr>
+				<th>name</th>
+				<th>username</th>
+				<th>phone number</th>
+				<th>Date of birth</th>
+				<th>Country</th>
+				
+				
+			</tr>
+			{% for v in data %}
+			<tr>
+				<td>{{v.name}}</td>
+				<td>{{v.contact_id.username}}</td>
+				<td>{{v.contact_id.phone}}</td>
+				<td>{{v.contact_id.dob}}</td>
+				<td>{{v.contact_id.country.country_name}}</td>
+				
+				<td></td>
+				
+			</tr>
+			{% endfor %}
+		</table>
+	</body>
+

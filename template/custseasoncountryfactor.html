@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript">
+	function validation() {
+		var factor=document.getElementById("factor");
+		if(factor.value.length == 0) {
+			alert("select factor");
+			
+			return false;
+			}
+		else {
+			return true;
+	
+}	}
+</script>
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>customize</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+ <section id="cust" class="contact">
+      <div class="container">
+
+        <div class="row justify-content-center" data-aos="fade-up">
+
+          <div class="col-lg-10">
+
+            
+          </div>
+
+        </div>
+
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'seasonfactAction' %}" class="php-email-form">
+	{% csrf_token %}
+	<div class="form-group">
+		<label>factor</label>
+			<select class="form-control" name="factor" id="factor" >
+					
+						<option value="">--select----</option>
+						{% for i in data %}
+							<option value="{{i.factor_id_id}}">{{i.factor_id.factor_name}}</option>
+						{% endfor %}
+			</select>
+		</div>
+	<div class="text-center"><button type="submit" onclick="return validation()">customize</button></div>
+            </form>
+</section>			
+{% endblock %}
+
+
+<head>
+	<h2> customize season country factor</h2>
+</head>
+<form method="post" action="{% url 'seasonfactAction' %}">
+	{% csrf_token %}
+<body>
+<table>
+	
+	<tr><td>factor</td><td><select name="factor" id="factor">
+		<option value="">__select__</option>
+		{% for i in data %}
+		<option value="{{i.factor_id_id}}">{{i.factor_id.factor_name}}</option>
+		{% endfor %}
+			
+	
+		</select></td>
+</td>
+
+	</tr>
+	<tr><td></td><td><input type="submit" value="submit" onclick="return validation()"></td></tr>
+</table>
+</body>
+<form>

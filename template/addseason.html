@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript">
+	function validation() {
+		var season=document.getElementById("season");
+		if(season.value.length == 0) {
+			alert("enter season name");
+			season.focus();
+			return false;
+			}
+		else {
+			return true;
+	
+}	}
+</script>
+
+
+<!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>add season</h2>
+          <ol>
+            <li><a href="{% url 'home' %}">>Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= registert Section ======= -->
+   
+
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="row justify-content-center" data-aos="fade-up">
+
+          <div class="col-lg-10">
+
+            
+          </div>
+
+        </div>
+
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'seasonAction' %}" class="php-email-form">
+	{% csrf_token %}
+		
+              
+                <div class="form-group mt-3">
+		<label> add a new season</label>
+                  <input type="text" name="season" class="form-control" id="season" placeholder="season name" required>
+                </div>
+
+		<div class="my-3">
+		</div>
+             
+             
+              <div class="text-center"><button type="submit" onclick="return validation()">add season</button></div>
+            </form>
+
+
+</section>
+
+{% if messages %}
+	{% for msg in messages %}
+	<script>
+		alert('{{msg}}');
+	</script>
+	{% endfor %}
+{% endif %}
+{% endblock %}
+
+
+
+
+<head><h2>add season</h2></head>
+
+<body>
+<form method="post" action="{% url 'seasonAction' %}">
+{% csrf_token %}
+	<table>
+		<tr>
+			<td>add season</td><td>:</td><td><input type="text" name="season" id="season"/></td>
+		</tr>
+		<tr>
+			<td></td><td></td><td><input type="submit" value="submit" onclick="return validation()"/></td>
+		</tr>
+	</table>
+</body>
+</form>
+
+

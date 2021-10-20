@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+	.submit{
+		background: #1bbd36;
+    	border: 0;
+    	padding: 10px 24px;
+    	color: #fff;
+    	transition: 0.4s;
+    	border-radius: 4px;
+		}
+</style>
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>spam filtering</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/static/web/company/assets/img/favicon.png" rel="icon">
+  <link href="/static/web/company/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/web/company/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="/static/web/company/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/static/web/company/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/web/company/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/web/company/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/web/company/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/static/web/company/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/web/company/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/web/company/assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Company - v4.5.0
+  * Template URL: https://bootstrapmade.com/company-free-html-bootstrap-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+ <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center">
+
+      <h1 class="logo me-auto"><a href="index.html"><span>spam</span>-filtering</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul>
+          
+
+		{% if 'user_id' not in request.session and 'admin_id' not in request.session %}
+			<li><a href="{% url 'index' %}" class="active">Home</a></li>
+              		<li><a href="{% url 'login' %}">login</a></li>
+              		<li></i> <a href="{% url 'register' %}">register</a></li>
+		{% elif 'admin_id' in request.session %}
+			<li><a href={% url 'adminhome' %} class="active">Home</a></li>
+              		<li> <a href="{% url 'addHobby' %}">Add hobby</a></li>
+              		<li><a href="{% url 'addseason' %}">Add season</a></li>
+			<li class="dropdown"><a href="#"><span>add factors</span> </i></a>
+            		<ul>
+              			<li><a href="{% url 'addHobbyfactor' %}">add hobby factor</a></li>
+             			 <li><a href="{% url 'addAgefactor' %}">add age factor</a></li>
+              			<li><a href="{% url 'addseasonfactor' %}">add season factor</a></li>
+				<li><a href="{% url 'addseasoncountryfactor' %}">add season country factor</a></li>
+			</ul>
+			</li>
+			<li><a href="{% url 'logout' %}"</a>logout</li>
+		{% elif 'user_id' %}
+			<li><a href="{% url 'home' %}" class="active">Home</a></li>
+			<li class="dropdown"><a href="#"><span>customise</span> </i></a>
+            		<ul>
+              			<li><a href="{% url 'customize' %}">customize using hobby factor</a></li>
+				<li><a href="{% url 'customizeagefactor' %}">customize using age factor</a></li>
+				<li><a href="{% url 'customizeseasoncountryfactor' %}">customize using country factor</a></li>
+			</ul>
+			</li>
+			<li><a href="{% url 'sendmessage' %}">compose</a></li>
+			<li> <a href="{% url 'viewmessage' %}">inbox</a></li>
+              		<li><a href="{% url 'outbox' %}">outbox</a></li>
+			<li class="dropdown"><a href="#"><span>more</span> </i></a>
+            		<ul>
+              			<li><a href="{% url 'addcontact' %}">add contact</a></li>
+				<li><a href="{% url 'addtoblacklist' %}">add to blacklist</a></li>
+				<li><a href="{% url 'viewcontact' %}">my contacts</a></li>
+				<li><a href="{% url 'viewblacklist' %}">blacklist</a></li>
+				<li><a href="{% url 'viewtrash' %}">view trash</a></li>
+				<li><a href="{% url 'viewspam' %}">view spam</a></li>
+				<li><a href="{% url 'update' %}">update profile</a></li>
+				<li><a href="{% url 'resetpassword' %}">reset password</a></li>
+			</ul>
+			</li>
+			<li><a href="{% url 'logout' %}"</a>logout</li>
+		{% endif %}
+
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+      <div class="header-social-links d-flex">
+        <a href="#" class="twitter"><i class="bu bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bu bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bu bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bu bi-linkedin"></i></i></a>
+      </div>
+
+    </div>
+  </header><!-- End Header -->
+
+ 
+{% block content %}
+  {% endblock %}
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>spam filtering</h3>
+            <p>
+              A108 Adam Street <br>
+              New York, NY 535022<br>
+              United States <br><br>
+              <strong>Phone:</strong> +1 5589 55488 55<br>
+              <strong>Email:</strong> info@example.com<br>
+            </p>
+          </div>
+
+          
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+         
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>do you want us to contact you</h4>
+            <p>if you have any queries, please do share your mail with us</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="send mail">
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container d-md-flex py-4">
+
+      <div class="me-md-auto text-center text-md-start">
+        <div class="copyright">
+          &copy; Copyright <strong><span>spam filtering</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+         
+          Designed by <a href="https://bootstrapmade.com/">me itself</a>
+        </div>
+      </div>
+      <div class="social-links text-center text-md-right pt-3 pt-md-0">
+        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/static/web/company/assets/vendor/aos/aos.js"></script>
+  <script src="/static/web/company/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/web/company/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/static/web/company/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+  <script src="/static/web/company/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/static/web/company/assets/vendor/waypoints/noframework.waypoints.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/web/company/assets/js/main.js"></script>
+
+</body>
+
+</html>

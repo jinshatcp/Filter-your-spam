@@ -1,32 +1,59 @@
-<html>
+{% extends 'base.html' %}
+{% block content %}
 
 
-<head><h2>INBOX</h2></head>
 
-<body>
-<table>
+ <!-- ======= view message Section ======= -->
+
+ <section id="testimonials" class="testimonials section-bg">
+{% if data %}
+<form method="post" action="{% url 'trashAction'%}">
+{% csrf_token %}
+<input type="hidden" name="msg_id" value="{{v.id}}">      
+<div class="container">
+
+        <div class="row">
+{% for v in data %}
+          <div class="col-lg-6" data-aos="fade-up" style="margin-top:20px">
+            <div class="testimonial-item">
+              
+              <h2>{{v.source}}</h2>
+              <h4>subject:{{v.subject}}</h4>
+		<h4>date:{{v.date}},time:{{v.time}}</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                {{v.message}}
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+		<div>
+		<a href="{% url 'reply' v.id %}">reply to this message</a>
+		</div>
+		<div>
+		<a href={% url 'forward' v.id %}>forward this message</a>
+		</div>
+		<div>
+		<input type="checkbox" id="trash" name="trash" value="{{v.id}}">select</div>
+            	
+          </div>
+	</div>
+{% endfor %}
+</div>
+</div>
+<div class="text-center" style="margin-top:20px"><input type="submit" name="movetotrash" class="submit" value="move selected messages to trash"></div>
+</form>
+{% else %}	
+	<div class="text-center" style="margin-top:20px"><p> no messages</p></div>
+{% endif %}
+</section>	
+<script>
+	{% if messages %}
+		{% for i in messages %}
+			alert('{{i}}');
+		{% endfor %}
+	{% endif %}
+</script>
+
+	{% endblock %}
 	
-	{% for v in data %}
-	<input type="hidden" name="msg_id" value="{{v.id}}">
 	
-	<tr><td> FROM </td><td>{{v.source}}</td></tr>
-	<tr><td> date</td><td>{{v.date}}</td></tr>
-	<tr><td>time</td><td>{{v.time}}</td></tr>
-	<tr><td>Subject</td><td>{{v.subject}}</td></tr>
-	<tr><td>message</td><td>{{v.message}}</td></tr>
-	<tr><td><a href="{% url 'reply' v.id %}">reply to this message</a></td></tr>
-	<tr><td><a href={% url 'deletemessage' v.id 0 %}>delete msg</a></td></tr>
-	<tr><td><a href={% url 'forward' v.id %}>forward this message</a></td></tr>
-	
-		<tr><td>...........................</td><td>..............</td></tr>
-	{% endfor %}
-</table>
 
-
-		
-		
-		
-
-</body>
-
-</html>

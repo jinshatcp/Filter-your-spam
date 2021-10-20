@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript">
+	function validation() {
+		var season=document.getElementById("season");
+		var factor=document.getElementById("factor");
+		if(season.value.length == 0) {
+			alert("select season factor");
+			season.focus();
+			return false;
+			}
+		else if(factor.value.length == 0) {
+			alert("factor field empty");
+			return focus();
+			}
+
+		else {
+			return true;
+	
+}	}
+</script>
+
+<!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>add season factor factor</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= registert Section ======= -->
+   
+
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="row justify-content-center" data-aos="fade-up">
+
+          <div class="col-lg-10">
+
+            
+          </div>
+
+        </div>
+
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'seasonfactorAction' %}" class="php-email-form">
+	{% csrf_token %}
+		
+		<div class="form-group">
+		<label>season</label>
+			<select class="form-control" name="season" id="season" >
+				<option value= "">_select hobby__</option>
+				
+				{% for s in data %} 
+					<option value="{{s.id}}">{{s.season_name}}</option>
+				{% endfor %}
+				</select>
+			</div>              
+
+
+                <div class="form-group mt-3">
+		<label> add factor</label>
+                  <input type="text" name="factor" class="form-control" id="factor" placeholder="factor name" required>
+                </div>
+
+		<div class="my-3">
+		</div>
+             
+             
+              <div class="text-center"><button type="submit" onclick="return validation()">submit</button></div>
+            </form>
+
+
+</section>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+<head>
+	<h2> add season factor</h2>
+</head>
+<form method="post" action="{% url 'seasonfactorAction' %}">
+{% csrf_token %}
+<body>
+
+	<table>
+		<tr>
+			<td>season</td>
+			<td>
+				<select name="season" id="season">
+						<option value="">--select--</option>
+						{% for s in data %}
+							<option value="{{s.id}}">{{s.season_name}}</option>
+						{% endfor %}
+					</select>
+			</td>
+		</tr>
+		<tr>
+			<td>add factor</td>
+			<td><input type="textbox" name="factor" id="factor"/></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" name="add" onclick="return validation()"/></td>
+		</tr>
+	</table>
+</body>
+</form>

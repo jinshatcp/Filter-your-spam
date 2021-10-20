@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+
+ <!-- ======= view message Section ======= -->
+{% for v in data %}
+ <section id="inbox" class="testimonials section-bg">
+<input type="hidden" name="msg_id" value="{{v.id}}">      
+<div class="container">
+
+        <div class="row">
+
+          <div class="col-lg-6" data-aos="fade-up">
+            <div class="testimonial-item">
+              
+              <h2>from : {{v.msg_id.source}}</h2>
+              <h4>subject:{{v.msg_id.subject}}</h4>
+		<h4>date:{{v.msg_id.date}},time:{{v.msg_id.time}}}</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                {{v.msg_id.message}}
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+		<div>
+		<a href={% url 'deletetrash' v.id  %}>recycle </a>
+		</div>
+		<div>
+		<a href={% url 'deletemessage' v.id 0 %}>delete msg</a>
+		</div>
+		
+          </div>
+{% endfor %}
+
+
+</section>	
+<script>
+	{% if messages %}
+		{% for i in messages %}
+			alert('{{i}}');
+		{% endfor %}
+	{% endif %}
+</script>
+
+{% endblock %}
+<head><h2>trash</h2></head>
+
+<body>
+
+<table>
+	
+	{% for v in data %}
+	<input type="hidden" name="msg_id" value="{{v.id}}">
+	
+	<tr><td> FROM </td><td>{{v.msg_id.source}}</td></tr>
+	<tr><td> date</td><td>{{v.msg_id.date}}</td></tr>
+	<tr><td>time</td><td>{{v.msg_id.time}}</td></tr>
+	<tr><td>Subject</td><td>{{v.msg_id.subject}}</td></tr>
+	<tr><td>message</td><td>{{v.msg_id.message}}</td></tr>
+	
+	<tr><td><a href={% url 'deletetrash' v.id  %}>recycle </a></td></tr>
+	<tr><td><a href={% url 'deletemessage' v.id 0 %}>delete msg</a></td></tr>
+		<tr><td>...........................</td><td>..............</td></tr>
+	{% endfor %}
+	
+</table>
+
+</form>
+		
+		
+		
+
+</body>
+

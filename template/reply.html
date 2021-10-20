@@ -1,5 +1,78 @@
-<html>
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript">
+	function validation() {
+		
+		var subject=document.getElementById("subject")
+		var message=document.getElementById("message")
+		
+		 if(subject.value.length == 0) {
+			alert("enter subject");
+			return false;
+		}
+		else if (message.value.length == 0) {
+			alert("message fileld empty");
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+</script>
 
+<!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>reply to message</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+
+ <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'forwardAction' %} role="form" class="php-email-form">
+	{% csrf_token %}
+              <div class="row">
+                <div class="form-group mt-3">
+<label> enter recipient username</label>
+                  <input type="text" name="des_username" id="des_username" class="form-control" value="{{v.source}}" readonly required>
+                </div>
+                
+              </div>
+              <div class="form-group mt-3">
+<label> subject</label>
+                <input type="text" class="form-control" name="subject" id="subject" value="reply" required>
+              </div>
+
+	<div class="form-group mt-3">
+<label>{{v.source}}</label>
+                <textarea class="form-control" name="message" rows="5" >{{v.message}</textarea>
+              </div>
+              <div class="form-group mt-3">
+<label>type your message</label>
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+	 <div class="my-3">
+		</div>
+             
+              <div class="text-center"><button type="submit" onclick="return validation()">Send Message</button></div>
+            </form>
+          </div>
+
+        </div>
+
+</section>
+
+
+{% endblock %}
 <head><h2> REPLY HERE</h2></head
 <body>
 <form method="post" action="{% url 'forwardAction' %}">
@@ -9,12 +82,10 @@
 	
 	{% for v in data %}
 	<tr><td>To</td><td><input type="text" name="des_username" value="{{v.source}}" readonly/>
-	<tr><td>subject</td><td><input type="text" name="subject" value="reply"/></td></tr>
+	<tr><td>subject</td><td><input type="text" name="subject" value="reply" id="subject"/></td></tr>
 	<tr><td>{{v.source}}</td><td><textarea name="msg" rows="6" cols="15">{{v.message}} </textarea></td></tr>
-	<tr><td>type your msssage here</td><td><textarea name="message" rows="6" cols="15"></textarea></td></tr>
-	<tr><td></td><td><input type="submit" value="send"</td></tr>
+	<tr><td>type your msssage here</td><td><textarea name="message" rows="6" cols="15" id="message"></textarea></td></tr>
+	<tr><td></td><td><input type="submit" value="send" onclick="return validation()"></td></tr>
 	{% endfor %}
 </table>
 </form>
-
-</html>

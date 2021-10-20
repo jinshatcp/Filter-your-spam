@@ -1,32 +1,69 @@
-<html>
-<head>
-	<h2>SEND MESSAGE </h2>
-</head>
-<form method="post" action="{% url 'messageAction' %}">
-{% csrf_token %}
-<body>
-<table>
-<input type="hidden" value="{{user_id}}"/>
-	<tr>
-		<td> RECIPIENT USERNAME </td>
-		<td><input type="text" name="des_username" id="des_username" placeholder="to whom you want to send"/></td>
-	</tr>
-	<tr>
-		<td>SUBJECT</td>
-		<td><input type="text" name="subject" id="subject"/>
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript">
+	function validation() {
+		var username=document.getElementById("des_username")
+		var subject=document.getElementById("subject")
+		var message=document.getElementById("message")
+		if(username.value.length == 0) {
+			alert("select user");
+			return false;
+		}
+		else if(subject.value.length == 0) {
+			alert("enter subject");
+			return false;
+		}
+		else if (message.value.length == 0) {
+			alert("message fileld empty");
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+</script>
+	<section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
 
-	</tr>
-	<tr>
-		<td>TYPE YOUR MESSAGE HERE</td>
-		<td><textarea name=message rows="6" cols="15"></textarea></td>
-	</tr>
-	<tr>
-		<td>    </td>
-		<td>  <input type="submit" value="send message"/></td>
-	</tr>
-</table>
-</body>
-</form>
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>type a new message</h2>
+          
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+	 <section id="contact" class="contact">
+      <div class="container">
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'messageAction' %}" role="form" class="php-email-form">
+	{% csrf_token %}
+              <div class="row">
+                <div class="form-group mt-3">
+<label> enter recipient username</label>
+                  <input type="text" name="des_username" id="des_username" class="form-control" placeholder="reciepient username" required>
+                </div>
+                
+              
+              <div class="form-group mt-3">
+<label> subject</label>
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+<label>type your message</label>
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+	 <div class="my-3">
+		</div>
+             
+              <div class="text-center"><button type="submit" onclick="return validation()">Send Message</button></div>
+            </form>
+          </div>
+
+        </div>
+</div>
+</section>
 {% if messages %}
 	{% for i in messages%}
 	<script>
@@ -34,4 +71,7 @@
 	</script>
 	{% endfor %}
 {% endif %}
+{% endblock %}
+
+
 </html>

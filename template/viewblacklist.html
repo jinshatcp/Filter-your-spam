@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>blacklist</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+<section id="testimonials" class="testimonials section-bg">
+
+     
+<div class="container">
+
+        <div class="row">
+{% for v in data %}
+         
+           <div class="col-lg-6" data-aos="fade-up" style="margin-top:20px">
+            <div class="testimonial-item">
+                
+                <h2>name:{{v.name}}</h2>
+ 		<h4>username:{{v.contact_id.username}}</h4>
+		 <h4>phone:{{v.contact_id.phone}}</h4>
+		<h4>country:{{v.contact_id.country.country_name}}</h4>
+<br>
+                <a href="{% url 'unblock' v.id %}">unblock</a>
+              </div>
+ </div>          
+          
+{% endfor %}
+</section>
+{% endblock %}
+	

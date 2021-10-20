@@ -22,7 +22,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^$',admin_view.index),
+    url(r'^$',admin_view.index,name='index'),
     url(r'^login/',admin_view.login,name='login'),
     url(r'^loginAction/',admin_view.loginAction,name='loginAction'),
     url(r'^home/',user_view.home,name='home'),
@@ -45,10 +45,40 @@ urlpatterns = [
     url(r'^factorAction/',admin_view.factorAction,name='factorAction'),
     url(r'^customize/',user_view.customize,name='customize'),
     url(r'^customizeAction/',user_view.customizeAction,name='customizeAction'),
-    
-    
-
+    url(r'^getfactor/',user_view.getfactor,name='getfactor'),
+    url(r'^addAgefactor/',admin_view.addAgefactor,name='addAgefactor'),
+    url(r'^agefactorAction/',admin_view.agefactorAction,name='agefactorAction'),
+    url(r'^customizeagefactor/',user_view.customizeagefactor,name='customizeagefactor'),
+    url(r'^agecustAction/',user_view.agecustAction,name='agecustAction'),
+    url(r'^addseason/',admin_view.addseason,name='addseason'),
+    url(r'^seasonAction/',admin_view.seasonAction,name='seasonAction'),
+    url(r'^adminhome/',admin_view.adminhome,name='adminhome'),
+    url(r'^addseasonfactor/',admin_view.addseasonfactor,name='addseasonfactor'),
+    url(r'^seasonfactorAction/',admin_view.seasonfactorAction,name='seasonfactorAction'),
+    url(r'^addseasoncountryfactorr/',admin_view.addseasoncountryfactor,name='addseasoncountryfactor'),
+    url(r'^getfact/',admin_view.getfact,name='getfact'),
+    url(r'^countryaction/',admin_view.countryAction,name='countryAction'),
+    url(r'^customizeseasoncountryfactor/',user_view.customizeseasoncountryfactor,name='customizeseasoncountryfactor'),
+    url(r'^seasonfactAction/',user_view.seasonfactAction,name='seasonfactAction'),
+    url(r'^addcontact/',user_view.addcontact,name='addcontact'),
+    url(r'^contactAction/',user_view.contactAction,name='contactAction'),
+    url(r'^checkusername/',user_view.checkusername,name='checkusername'),
+    url(r'^addtoblacklist/',user_view.addtoblacklist,name='addtoblacklist'),
+    url(r'^blacklistAction/',user_view.blacklistAction,name='blacklistAction'),
+    url(r'^viewcontact/',user_view.viewcontact,name='viewcontact'),
+    url(r'^viewblacklist/',user_view.viewblacklist,name='viewblacklist'),
+    url(r'^block/(?P<pid>\d+)/$',user_view.block,name='block'),
+    url(r'^unblock/(?P<pid>\d+)/$',user_view.unblock,name='unblock'),
+    url(r'^trashAction/',user_view.trashAction,name='trashAction'),
+    url(r'^viewtrash/',user_view.viewtrash,name='viewtrash'),
+    url(r'^deletetrash/(?P<pid>\d+)/$',user_view.deletetrash,name='deletetrash'),
+    url(r'^logout/',user_view.logout,name='logout'),
+    url(r'^forgotpassword/',user_view.forgotpassword,name='forgotpassword'),
+    url(r'^resetpassword/',user_view.resetpassword,name='resetpassword'),
+    url(r'^checkAction/',user_view.checkAction,name='checkAction'),
+    url(r'^reset/',user_view.reset,name='reset'),
+    url(r'^viewspam/',user_view.viewspam,name='viewspam'),
     
     
 ]
-urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+

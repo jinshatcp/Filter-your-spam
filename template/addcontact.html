@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript">
+	function validation() {
+	var conname=document.getElementById("name");
+	var username=document.getElementById("username");
+	var remark=document.getElementById("remark");
+	if(conname.value.length == 0) {
+		alert("enter contact name");
+		conname.focus();
+		return false;
+		}
+	else if(username.value.length == 0) {
+		alert("enter username");
+		username.focus();
+		return false;
+		}
+	else if(remark.value.length == 0){
+		alert("enter remark");
+		remark.focus();
+		return false;
+		}
+	else {
+		return true;
+	}
+}
+</script>
+<script src="/static/jquery.min.js"></script>
+
+<script>		$(document).ready(function() {
+
+			$("#username").change(function() { 
+				username=$("#username").val();
+
+				$.ajax({
+					url:"{% url 'checkusername' %}",
+					data:{'username':username},
+					success:function(data) {
+						if (data.check == 'not exist') {
+							alert("username does not exist exist");
+
+							$('#username').val('');
+						}
+					}
+				});
+			});
+
+		});
+</script>	
+
+
+<!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>add contact</h2>
+          <ol>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+
+    <section id="contact" class="contact">
+      <div class="container">
+
+      
+
+       
+
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'contactAction' %}" class="php-email-form">
+	{% csrf_token %}
+		
+          
+                <div class="form-group mt-3">
+		<label> contact name</label>
+                  <input type="text" name="contact_name" class="form-control" id="name" placeholder="contact name" required>
+                </div>
+		<div class="form-group mt-3">
+		<label> username</label>
+                  <input type="text" name="username" class="form-control" id="username" placeholder="username" required>
+                </div>
+		<div class="form-group mt-3">
+		<label> remarks</label>
+                  <input type="text" name="remark" class="form-control" id="remark" placeholder="remark" required>
+                </div>
+		  <div class="my-3">
+		</div>
+		<div class="text-center"><button type="submit" onclick="return validation()">add contact</button></div>
+		</form>
+   </div>
+
+        </div>
+</div>
+   
+</section>			
+
+
+
+<script>
+{% if messages %}
+		{% for i in messages %}
+			alert('{{i}}');
+		{% endfor %}
+	{% endif %}
+</script>
+
+{% endblock %}

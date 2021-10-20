@@ -1,4 +1,93 @@
-<html>
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript">
+	function validation() {
+		var hobby=document.getElementById("hobby");
+		var factor=document.getElementById("factor");
+		if(hobby.value.length == 0) {
+			alert("select hobby");
+			
+			return false;
+			}
+		else if(factor.value.length == 0)
+			{
+			alert("enter factor");
+			return false;
+		}
+		else {
+			return true;
+	
+}	}
+</script>
+
+
+<!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>add hobby factor</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= registert Section ======= -->
+   
+
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="row justify-content-center" data-aos="fade-up">
+
+          <div class="col-lg-10">
+
+            
+          </div>
+
+        </div>
+
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'factorAction' %}" class="php-email-form">
+	{% csrf_token %}
+		
+		<div class="form-group">
+		<label>hobby</label>
+			<select class="form-control" name="hobby" id="hobby" >
+				<option value= "">_select hobby__</option>
+				
+				{% for c in data %} 
+					<option value="{{c.id}}">{{c.hobby_name}}</option>
+				{% endfor %}
+				</select>
+			</div>              
+
+
+                <div class="form-group mt-3">
+		<label> add factory</label>
+                  <input type="text" name="factor" class="form-control" id="hobby" placeholder="factor name" required>
+                </div>
+
+		<div class="my-3">
+		</div>
+             
+             
+              <div class="text-center"><button type="submit" onclick="return validation()">submit</button></div>
+            </form>
+
+
+</section>
+
+{% endblock %}
+
+
+
+
 <head>
 	<h2> add hobby factor</h2>
 </head>
@@ -24,9 +113,8 @@
 		</tr>
 		<tr>
 			<td></td>
-			<td><input type="submit" name="add"/></td>
+			<td><input type="submit" name="add" onclick="return validation()"/></td>
 		</tr>
 	</table>
 </body>
 </form>
-</html>

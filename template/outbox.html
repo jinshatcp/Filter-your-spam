@@ -1,24 +1,42 @@
-<html>
+{% extends 'base.html' %}
+{% block content %}
 
+<!-- ======= view message Section ======= -->
 
-<head><h2>OUTBOX</h2></head>
+ <section id="testimonials" class="testimonials section-bg">
+<input type="hidden" name="msg_id" value="{{v.id}}">   
+ 
+<div class="container">
 
-<body>
-<table>
-	
+        <div class="row">
 	{% for v in data %}
-	
-	<tr><td> to </td><td>{{v.destination}}</td></tr>
-	<tr><td> date</td><td>{{v.date}}</td></tr>
-	<tr><td>time</td><td>{{v.time}}</td></tr>
-	<tr><td>Subject</td><td>{{v.subject}}</td></tr>
-	<tr><td>message</td><td>{{v.message}}</td></tr>
-	<tr><td><a href={% url 'deletemessage' v.id 1 %}>delete msg</a></td></tr>
-	
-	<tr><td>......................</td><td>............................</td></tr>
-
+          <div class="col-lg-6" data-aos="fade-up" style="margin-top:20px">
+            <div class="testimonial-item">
+              
+              <h2>{{v.destination}}</h2>
+              <h4>subject:{{v.subject}}</h4>
+		<h4>date:{{v.date}},time:{{v.time}}</h4>
+              <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                {{v.message}}
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+              </p>
+		<div>
+		<a href={% url 'deletemessage' v.id 1 %}>delete msg</a>		</div>
+	</div>
+          </div>
 	{% endfor %}
-</table>
-</body>
+</div>
+</div>
+	
+</section>	
+<script>
+	{% if messages %}
+		{% for i in messages %}
+			alert('{{i}}');
+		{% endfor %}
+	{% endif %}
+</script>
 
-</html>
+{% endblock %}
+

@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<script type="text/javascript">
+	function validation() {
+	var minage=document.getElementById("minage");
+	var maxage=document.getElementById("maxage");
+	var factname=document.getElementById("factname");
+	if(minage.value.length == 0) {
+		alert("enter minimum age");
+		minage.focus();
+		return false;
+		}
+	else if(maxage.value.length == 0) {
+		alert("enter maximum age");
+		maxage.focus();
+		return false;
+		}
+	else if(factname.value.length == 0){
+		alert("enter factor name");
+		remark.focus();
+		return false;
+		}
+	else {
+		return true;
+	}
+}
+</script>
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>customize</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+ <section id="cust" class="contact">
+      <div class="container">
+
+        <div class="row justify-content-center" data-aos="fade-up">
+
+          <div class="col-lg-10">
+
+            
+          </div>
+
+        </div>
+
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" aaction="{% url 'agefactorAction' %}" class="php-email-form">
+	{% csrf_token %}
+
+	 <div class="form-group mt-3">
+		<label>minimum age</label>
+                  <input type="text" name="minage" class="form-control" id="minage" placeholder="mimimum age" required>
+                </div>
+
+	<div class="form-group mt-3">
+		<label>maximum age age</label>
+                  <input type="text" name="maxage" class="form-control" id="maxage" placeholder="maximum age" required>
+                </div>
+	<div class="form-group mt-3">
+		<label>factor name</label>
+                  <input type="text" name="factname" class="form-control" id="factname" placeholder="factor name" required>
+                </div>
+
+	  <div class="text-center"><button type="submit" onclick="return validation()"">add</button></div>
+</form>
+
+{% endblock %}
+<head>
+	<h2>age factor</h2>
+</head>
+<body>
+	
+	<form method="post" action="{% url 'agefactorAction' %}">
+	{% csrf_token %}
+			
+			<table>
+			<tr>
+					<td>minimum age</td>
+					<td><input type="text" name="minage" id="minage"/></td>
+				</tr>
+				<tr>
+					<td>maximum age</td>
+					<td><input type="text" name="maxage" id=maxage"/></td>
+				</tr>
+				<tr>
+					<td>age factor</td>
+					<td><input type="text" name="factname" id=factname"/></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="add" onclick="return validation()"/></td>
+				</tr>
+			</table>
+</form>
+</body>

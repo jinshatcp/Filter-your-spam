@@ -1,12 +1,68 @@
-<html>
+{% extends 'base.html' %}
+{% block content %}
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>customize</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+ <section id="cust" class="contact">
+      <div class="container">
+
+        <div class="row justify-content-center" data-aos="fade-up">
+
+          <div class="col-lg-10">
+
+            
+          </div>
+
+        </div>
+
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'customizeAction' %}" class="php-email-form">
+	{% csrf_token %}
+<script type="text/javascript">
+	function validation() {
+		var hobby=document.getElementById("hobby");
+		var factor=document.getElementById("factor");
+		if(hobby.value.length == 0) {
+			alert("select hobby");
+			
+			return false;
+			}
+		else if(factor.value.length == 0) {
+			alert("select factor ");
+			
+			return false;
+			}
+		else {
+			return true;
+	
+}	}
+</script>
 	<script src="/static/jquery.min.js"></script>
 	<script>
 		$(document).ready(function(){
 			$("#hobby").change(function(){
 				hid=$("#hobby").val();
-				$.ajax({
+				
+				$.ajax ({
+
+
 					url:"{% url 'getfactor' %}",
 					data:{'hid':hid},
+
 					success:function(data){
 						$("#factor").html(data);
 					}
@@ -14,36 +70,24 @@
 			});
 		});
 	</script>
-<form method="post" action="{% customizeAction %}">
-{% csrf_token %}
-	<body>
-		<table>
-			<tr>
-				<td>hobby</td>
-				<td>
-					<select name="hobby" id="hobby">
-						<option value="">--select--</option>
-						{% for h in hobby %}
-							<option value="{{h.id}}">{{h.hobby_name}}</option>
-						{% endfor %}
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>factor</td>
-				<td>
-					<select name="factor" id="factor">
-						<option value="">--select--</option>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="submit" name="customize"/></td>
-			</tr>
 
-			
-		</table>
-	</body>
-</form>
-</html>
+	<div class="form-group">
+		<label>hobby</label>
+			<select class="form-control" name="hobby" id="hobby" >
+					
+						<option value="">--select----</option>
+						{% for h in data %}
+							<option value="{{h.hobby_id.id}}">{{h.hobby_id.hobby_name}}</option>
+						{% endfor %}
+			</select>
+		</div>
+	<div class="form-group">
+		<label>factor</label>
+			<select class="form-control" name="factor" id="factor" >	
+				<option value="">--select--</option>
+			</select>
+	</div>
+	<div class="text-center"><button type="submit" onclick="return validation()">customize</button></div>
+            </form>
+</section>			
+{% endblock %}

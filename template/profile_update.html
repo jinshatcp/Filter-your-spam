@@ -1,7 +1,238 @@
-<html>
-<head>
-	<h2>UPDATE PROFILE</h2>
-</head>
+{% extends 'base.html' %}
+{% block content %}
+<main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>UPDATE PROFILE</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Contact Section ======= -->
+   
+
+    <section id="contact" class="contact">
+      <div class="container">
+
+        <div class="row justify-content-center" data-aos="fade-up">
+
+          <div class="col-lg-10">
+
+            
+          </div>
+
+        </div>
+
+        <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'updateAction' %}" name="update" class="php-email-form">
+	{% csrf_token %}
+		
+   {% for v in data %}           
+                <div class="form-group mt-3">
+		<label>name</label>
+                  <input type="text" name="name" class="form-control" id="name" value="{{v.name}}" required>
+                </div>
+		  <div class="row">
+		<label> GENDER </label>
+		{% ifequal v.gender 'male' %}
+		<div class="col-md-6 form-group">
+				<input type="radio" name="gender" value="male" checked="true"/>male
+		</div>
+		<div class="col-md-6 form-group">
+					<td><input type="radio" name="gender" value="female"/>female
+		</div>
+		{% else %}
+		<div class="col-md-6 form-group">
+				<input type="radio" name="gender" value="male" />male
+		</div>
+		<div class="col-md-6 form-group">
+					<td><input type="radio" name="gender"  value= "female" checked="true" />female
+		</div>
+		{% endifequal %}
+		<div class="form-group mt-3">
+		<label> DATE OF BIRTH </label>
+                  <input type="date" name="dob" class="form-control" id="dob" value="{{v.dob}}" required>
+                </div>
+		 <div class="form-group mt-3">
+		<label>ADDRESS</label>
+                <textarea class="form-control" name="address" rows="5" required>{{v.address}}</textarea>
+              </div>
+		<div class="form-group">
+		<label>COUNTRY</label>
+			<select class="form-control" name="country" id="country" >
+				<option value="{{v.country_id}}">{{v.country.country_name}}</option>
+				
+				{% for c in data %} 
+					<option value="{{c.id}}">{{c.country_name}}</option>
+				{% endfor %}
+				</select>
+			</div>
+			<div class="form-group mt-3">
+			<label>STATE</label>
+				<select name = "state" id="state" class="form-control">
+				<option value="{{v.state_id}}">{{v.state.state_name}}</option>
+				</select>
+			</div>
+			<div class="col-md-6 form-group">
+				<p> select your hobbies </p>
+		</div>
+			<div class="col-md-6 form-group">
+				
+						{% for h in hobbies %}
+						
+						<input type="checkbox" {% for i in hob %} {% if h.id == i.hobby_id_id %} checked="true" {% endif %} {% endfor %} name="hobby"value="{{h.id}}"/>{{h.hobby_name}}
+					
+					{% endfor %}
+				
+		</div>
+	
+		
+             <div class="form-group mt-3">
+		<label> PHONE NUMBER</label>
+                  <input type="text" name="phone" class="form-control" id="phone" value="{{v.phone}}" required>
+                </div>
+		<div class="form-group mt-3">
+		<label>USERNAME</label>
+                  <input type="text" name="username" class="form-control" id="username" value="{{v.username}}" readonly="true" required>
+                </div>
+		<div class="form-group mt-3">
+		<label>PASSWORD</label>
+                  <input type="password" name="password" class="form-control" id="password" value="{{v.password}}" required>
+                </div>
+		<div class="my-3">
+		</div>
+             
+             
+              <div class="text-center"><button type="submit" onclick="return validation()">update profile</button></div>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+{% endfor %}
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+<script type="text/javascript">
+	function validation() {
+		
+		var alphabet=/^[a-zA-Z]+$/;
+		
+		var number=/^[0-9]+$/;
+		var n=/^\d{10}$/;
+		var email=/^[\w\-\.\+]+\a[a-zA-Z0-9\.\-]+[a-zA-Z0-9]{2,4}$/;
+		
+		
+	
+
+		var name=document.getElementById("name");
+		
+		var gender=document.update.gender;
+
+		var dob=document.getElementById("dob");
+		var address=document.getElementById("address");
+		var country=document.getElementById("country");
+		var state=document.getElementById("state");
+		var phone=document.getElementById("phone");
+		var username=document.getElementById("username");
+		var password=document.getElementById("password");
+	
+		
+		 if(name.value.length==0)
+		 {
+			alert("please enter your name");
+			name.focus();
+			return false;
+	}
+		else if(!name.value.match(alphabet))
+		 {
+			alert("invalid name");
+			name.focus();
+			return false;
+				}
+		else if(gender.value.length==0)
+		{
+			alert("select gender");
+			return false;
+		}
+		else if(dob.value.length==0)
+		{
+			alert("select your date of birth");
+			return false;
+		}
+		else if(address.value.length==0)
+		 {
+			alert("address field cannot be empty");
+			address.focus();
+			return false;
+				}
+		else if(!address.value.match(alphabet))
+		 {
+			alert("invalid address");
+			address.focus();
+			return false;
+				}
+		else if(country.value.length==0)
+		 {
+			alert("please select your country");
+			return false;
+				}
+		
+		else if(state.value.length==0) 
+		{
+			alert("please select your state");
+			return false;
+				}
+		
+		else if(phone.value.length==0) 
+		{
+			alert("please enter your  phone number");
+			phone.focus();
+			return false;
+				}
+		else if(!phone.value.match(n)) 
+		{
+			alert("invalid phone number ");
+			phone.focus();
+			return false;
+				}
+		else if(username.value.length==0) 
+		{
+			alert("please enter a username");
+			username.focus();
+			return false;
+				}
+		else if(!username.value.match(alphabet)) 
+		{
+			alert("invalid usernname; username can have only alphabets");
+			username.focus();
+			return false;
+				}
+		else if(password.value.length==0) 
+		{
+			alert("please enter password");
+			password.focus()
+			return false;
+				}
+		
+		
+		else  
+		{
+			return true;
+		}
+	}
+</script
 <script src="/static/jquery.min.js"></script>
 <script>
 
@@ -22,8 +253,7 @@
 		
 	});
 </script>
-<form method="post" action="{% url 'updateAction' %}">
-{% csrf_token %}
+{% endblock %}
 <body>
 {% for v in data %}	
 		
@@ -67,7 +297,7 @@
 			<td>state</td>
 			<td>
 				<select name = "state" id="state">
-				<option value= " {{v.state_id}}">{{v.state.state_name}}</option>
+				<option value= "{{v.state_id}}">{{v.state.state_name}}</option>
 				</select>
 			</td>
 
@@ -89,7 +319,7 @@
 			</tr>
 			<tr>
 				<td>Username</td>
-				<td><input type="text" name="username" id="username" value="{{v.username}}" readonly/>@mail.com</td>
+				<td><input type="text" name="username" id="username" value="{{v.username}}" readonly="true"/>@mail.com</td>
 			</tr>
 			<tr>
 				<td>Password</td>
@@ -97,7 +327,7 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="submit" value="UPDATE"/></td>
+				<td><input type="submit" value="UPDATE" onclick="return validation()"/></td>
 			</tr>
 		
 		</table>
@@ -106,4 +336,3 @@
 
 </body>
 </form>
-</html>

@@ -1,15 +1,88 @@
-<html>
+{% extends 'base.html' %}
+{% block content %}
+<script type="text/javascript">
+	function validation() {
+		var username=document.getElementById("des_username")
+		var subject=document.getElementById("subject")
+		var message=document.getElementById("message")
+		if(username.value.length == 0) {
+			alert("select user");
+			return false;
+		}
+		else if(subject.value.length == 0) {
+			alert("enter subject");
+			return false;
+		}
+		else if (message.value.length == 0) {
+			alert("message fileld empty");
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+</script>
+
+
+
+<!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>forward</h2>
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+
+ <div class="row mt-5 justify-content-center" data-aos="fade-up">
+          <div class="col-lg-10">
+            <form method="post" action="{% url 'forwardAction' %} role="form" class="php-email-form">
+	{% csrf_token %}
+              <div class="row">
+                <div class="form-group mt-3">
+<label> enter recipient username</label>
+                  <input type="text" name="des_username" id="des_username" class="form-control" required>
+                </div>
+           
+
+{% for v in data%}
+		 <div class="form-group mt-3">
+<label> subject</label>
+                <input type="text" class="form-control" name="subject" id="subject" value="{{v.subject}}" required>
+              </div>
+              <div class="form-group mt-3">
+<label> message</label>
+                <textarea class="form-control" name="message" rows="5" value="{{v.message}}" required></textarea>
+              </div>
+     
+   {% endfor %}
+              <div class="form-group mt-3">
+</div>
+ <div class="text-center"><button type="submit" onclick="return validation()">Send /button></div>
+            </form>
+
+</section>
+{% endblock %}
+
+
 <head><h2>forward</h2></head>
 <form method="post" action="{% url 'forwardAction' %}">
 {% csrf_token %}
 <body>
 <table> 
-	<tr><td>share to</td><td><input type="text" name="des_username" id="destination"/></td></tr>
+	<tr><td>share to</td><td><input type="text" name="des_username" id="des_username"/></td></tr>
 	{% for v in data%}
-	<tr><td>subject</td><td><input type="text" name= "subject" value="forwarded message"/></td></tr>
-	<tr> <td>message</td><td><textarea name="message" rows="6" cols="15">{{v.message}}</textarea></td></tr>
+	<tr><td>subject</td><td><input type="text" name= "subject" value="forwarded message" id="subject"/></td></tr>
+	<tr> <td>message</td><td><textarea name="message" rows="6" cols="15" id="message">{{v.message}}</textarea></td></tr>
 	{% endfor %}
-	<tr><td></td><td><input type="submit" value="send"/></td></tr>
+	<tr><td></td><td><input type="submit" value="send" onclick="return validation()"/></td></tr>
 </table>
 </body>
 
@@ -19,4 +92,4 @@
 	</script>
 {% endif %}
 
-</html>
+{% endblock %}
