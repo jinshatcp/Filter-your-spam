@@ -1,0 +1,20 @@
+<html>
+
+<head><h2> REPLY HERE</h2></head
+<body>
+<form method="post" action="{% url 'forwardAction' %}">
+{% csrf_token %}
+<table>
+	
+	
+	{% for v in data %}
+	<tr><td>To</td><td><input type="text" name="des_username" value="{{v.source}}" readonly/>
+	<tr><td>subject</td><td><input type="text" name="subject" value="reply"/></td></tr>
+	<tr><td>{{v.source}}</td><td><textarea name="msg" rows="6" cols="15">{{v.message}} </textarea></td></tr>
+	<tr><td>type your msssage here</td><td><textarea name="message" rows="6" cols="15"></textarea></td></tr>
+	<tr><td></td><td><input type="submit" value="send"</td></tr>
+	{% endfor %}
+</table>
+</form>
+
+</html>

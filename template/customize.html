@@ -1,0 +1,49 @@
+<html>
+	<script src="/static/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#hobby").change(function(){
+				hid=$("#hobby").val();
+				$.ajax({
+					url:"{% url 'getfactor' %}",
+					data:{'hid':hid},
+					success:function(data){
+						$("#factor").html(data);
+					}
+				});
+			});
+		});
+	</script>
+<form method="post" action="{% customizeAction %}">
+{% csrf_token %}
+	<body>
+		<table>
+			<tr>
+				<td>hobby</td>
+				<td>
+					<select name="hobby" id="hobby">
+						<option value="">--select--</option>
+						{% for h in hobby %}
+							<option value="{{h.id}}">{{h.hobby_name}}</option>
+						{% endfor %}
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>factor</td>
+				<td>
+					<select name="factor" id="factor">
+						<option value="">--select--</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" name="customize"/></td>
+			</tr>
+
+			
+		</table>
+	</body>
+</form>
+</html>

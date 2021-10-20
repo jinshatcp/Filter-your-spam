@@ -1,0 +1,15 @@
+<html>
+<head>
+	<title>spam_filtering</title>
+</head>
+<body>
+	<li><a href="{% url 'login' %}">Login</a></li>
+	<li><a href="{% url 'register' %}">REGISTER</a></li>
+	
+</body>
+<script>
+	{% if msg %}
+		alert('{{msg}}');
+	{% endif %}
+</script>
+</html>

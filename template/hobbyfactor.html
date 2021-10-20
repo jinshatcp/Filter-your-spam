@@ -1,0 +1,32 @@
+<html>
+<head>
+	<h2> add hobby factor</h2>
+</head>
+<form method="post" action="{% url 'factorAction' %}">
+{% csrf_token %}
+<body>
+
+	<table>
+		<tr>
+			<td>hobby</td>
+			<td>
+				<select name="hobby" id="hobby">
+						<option value="">--select--</option>
+						{% for c in data %}
+							<option value="{{c.id}}">{{c.hobby_name}}</option>
+						{% endfor %}
+					</select>
+			</td>
+		</tr>
+		<tr>
+			<td>add factor</td>
+			<td><input type="textbox" name="factor" id="factor"/></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" name="add"/></td>
+		</tr>
+	</table>
+</body>
+</form>
+</html>

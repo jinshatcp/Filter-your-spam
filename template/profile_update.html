@@ -1,0 +1,109 @@
+<html>
+<head>
+	<h2>UPDATE PROFILE</h2>
+</head>
+<script src="/static/jquery.min.js"></script>
+<script>
+
+	$(document).ready(function() {
+		$("#country").change(function() { 
+			cid=$("#country").val();
+			$.ajax ({
+				url:"{% url 'getstate' %}",
+				data:{'cid':cid},
+				success:function(data) {
+					$("#state").html(data);
+	
+			}
+			});
+
+			
+			});
+		
+	});
+</script>
+<form method="post" action="{% url 'updateAction' %}">
+{% csrf_token %}
+<body>
+{% for v in data %}	
+		
+		<table>
+		
+			<tr>
+				<td>Name</td>
+				<td><input type="text" name="name" id="name" value="{{v.name}}"/></td>
+			</tr>
+			<tr>
+				<td>Gender</td>
+				
+				{% ifequal v.gender 'male' %}
+					<td><input type="radio" name="gender" value="male" checked="true"/>Male<input type="radio" name="gender" value="female"/>Female</td>
+				{% else %}
+					<td><input type="radio" name="gender" value="male" />Male<input type="radio" name="gender" value="female" checked="true"/>Female</td>
+				{% endifequal %}
+				
+			</tr>
+			<tr>
+				<td>Date of birth</td>
+				<td><input type="date" name="dob" id="dob" value="{{v.dob}}"/></td>
+			</tr>
+			<tr>
+				<td>Address</td>
+				<td><textarea name="address" rows="4" cols="10" id="address">{{v.address}}</textarea></td>
+			</tr>
+			<tr>
+			<td>country</td>
+			<td><select name="country" id="country">
+				<option value= "{{v.country_id}}">{{v.country.country_name}}</option>
+				
+				{% for c in countries %} 
+					<option value="{{c.id}}">{{c.country_name}}</option>
+				{% endfor %}
+				</select>
+			</td>
+				
+		</tr>
+		<tr>
+			<td>state</td>
+			<td>
+				<select name = "state" id="state">
+				<option value= " {{v.state_id}}">{{v.state.state_name}}</option>
+				</select>
+			</td>
+
+		</tr>
+			
+			
+			<tr>
+				<td>Phone</td>
+				<td><input type="text" name="phone" id="phone" value="{{v.phone}}"/></td>
+			</tr>
+			<tr>
+				<td>hobbies</td>
+				<td>
+					{% for h in hobbies %}
+						
+						<input type="checkbox" {% for i in hob %} {% if h.id == i.hobby_id_id %} checked="true" {% endif %} {% endfor %} name="hobby"value="{{h.id}}"/>{{h.hobby_name}}
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<td>Username</td>
+				<td><input type="text" name="username" id="username" value="{{v.username}}" readonly/>@mail.com</td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="password" name="password" id="password" value="{{v.password}}"/></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="UPDATE"/></td>
+			</tr>
+		
+		</table>
+{% endfor %}
+		</form>
+
+</body>
+</form>
+</html>

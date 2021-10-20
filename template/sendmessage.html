@@ -1,0 +1,37 @@
+<html>
+<head>
+	<h2>SEND MESSAGE </h2>
+</head>
+<form method="post" action="{% url 'messageAction' %}">
+{% csrf_token %}
+<body>
+<table>
+<input type="hidden" value="{{user_id}}"/>
+	<tr>
+		<td> RECIPIENT USERNAME </td>
+		<td><input type="text" name="des_username" id="des_username" placeholder="to whom you want to send"/></td>
+	</tr>
+	<tr>
+		<td>SUBJECT</td>
+		<td><input type="text" name="subject" id="subject"/>
+
+	</tr>
+	<tr>
+		<td>TYPE YOUR MESSAGE HERE</td>
+		<td><textarea name=message rows="6" cols="15"></textarea></td>
+	</tr>
+	<tr>
+		<td>    </td>
+		<td>  <input type="submit" value="send message"/></td>
+	</tr>
+</table>
+</body>
+</form>
+{% if messages %}
+	{% for i in messages%}
+	<script>
+		alert('{{i}}');
+	</script>
+	{% endfor %}
+{% endif %}
+</html>

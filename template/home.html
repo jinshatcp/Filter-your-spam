@@ -1,0 +1,21 @@
+<html>
+<head>
+	<h2>home</h2>
+</head>
+<body>
+	<li><a href="{% url 'update' %}">update profile</a></li>
+	<li><a href="{% url 'sendmessage' %}">TYPE A NEW MESSAGE</a></li>
+	<li><a href="{% url 'viewmessage' %}">inbox</a></li>
+	<li><a href="{% url 'outbox' %}">outbox</a></li>
+	<li><a href="{% url 'customize' %}">customization</a></li>
+	
+	
+</body>
+<script>
+	{% if messages %}
+		{% for i in messages %}
+			alert('{{i}}');
+		{% endfor %}
+	{% endif %}
+</script>
+</html>

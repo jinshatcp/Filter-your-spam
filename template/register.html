@@ -1,0 +1,99 @@
+<html>
+<head>
+	<h2>register</h2>
+</head>
+<script src="/static/jquery.min.js"></script>
+<script>
+
+	$(document).ready(function() {
+		$("#country").change(function() { 
+			cid=$("#country").val();
+			$.ajax ({
+				url:"{% url 'getstate' %}",
+				data:{'cid':cid},
+				success:function(data) {
+					$("#state").html(data);
+				}
+			});
+
+			
+			});
+		
+	});
+</script>
+<body>
+	<form method="post" action="{% url 'registerAction' %}">
+	{% csrf_token %}
+		
+		<table>
+			<tr>
+				<td>Name</td>
+				<td><input type="text" name="name" id="name"/></td>
+			</tr>
+			<tr>
+				<td>Gender</td>
+				<td>
+					<input type="radio" name="gender" value="Male"/>Male
+					<input type="radio" name="gender" value="Female"/>Female
+				</td>
+			</tr>
+			<tr>
+				<td>Date of birth</td>
+				<td><input type="date" name="dob" id="dob"/></td>
+			</tr>
+			<tr>
+				<td>Address</td>
+				<td><textarea name="address" rows="4" cols="10" id="address"></textarea></td>
+			</tr>
+			<tr>
+			<td>country</td>
+			<td><select name="country" id="country">
+				<option value= " ">__select__</option>
+				
+				{% for c in data %} 
+					<option value="{{c.id}}">{{c.country_name}}</option>
+				{% endfor %}
+				</select>
+			</td>
+				
+		</tr>
+		<tr>
+			<td>state</td>
+			<td>
+				<select name = "state" id="state">
+				<option value= " ">__select__</option>
+				</select>
+			</td>
+
+		</tr>
+			
+			
+			<tr>
+				<td>Phone</td>
+				<td><input type="text" name="phone" id="phone"/></td>
+			</tr>
+			<tr>
+				<td>hobbies</td>
+				<td>
+					{% for h in dataa %}
+						<input type="checkbox"  name="hobby"value="{{h.id}}"/>{{h.hobby_name}}
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<td>Username</td>
+				<td><input type="text" name="username" id="username"/>@mail.com</td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td><input type="password" name="password" id="password"/></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" value="Register"/></td>
+			</tr>
+		</table>
+		</form>
+
+</body>
+</html>
